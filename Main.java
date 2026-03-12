@@ -1,54 +1,53 @@
-package com.TrainManagement.UseCaseFour;
+package com.TrainManagement.UseCaseFive;
+
 import java.util.*;
 
 /**
  * 
- * USECASE 4 - TRAIN CONSIST MANAGEMENT
- * LINKED LIST IMPLEMENTATION
- * INITIALISE TRAIN AND USE FUNCTIONS SUCH AS addFirst, addLast, removeFirst, removeLast, contains
+ * USECASE 5 - TRAIN CONSIST MANAGEMENT
+ * PRESERVE INSERTION ORDER OF BOGIES USING LINKEDHASHSET
+ * INITIALISE TRAIN AND USE FUNCTIONS SUCH AS add, remove, contains
  * DISPLAY CONSIST SUMMARY
  * 
  * DESCRIPTION :
  * 
  * - MARKS THE ENTRY POINT OF THE TRAIN MANAGEMENT APPLICATION
- * - USES A LinkedList TO STORE BOGIES
+ * - USES A DYNAMIC LIST TO STORE BOGIES
  * - DISPLAYS THE INITIAL BOGIE COUNT
- * - USES FUNCTIONS SUCH AS addFirst, addLast, removeFirst, removeLast, contains
+ * - USES FUNCTIONS SUCH AS ADD, REMOVE, CONTAINS
  * 
  * @author Harsheen
- * @version 4.0
+ * @version 5.0
  */
+
 public class Main {
 	public static void main(String args[]) {
 		System.out.println("============================================");
 		System.out.println("======TRAIN CONSIST MANAGEMENT SYSTEM ======");
-		System.out.println("====================UC-4===================");
+		System.out.println("====================UC-5===================");
 		
-		//Initialising linkedlist
-		List<String> trainConsist=new LinkedList<String>();
+		//Initialise LinkedHashSet
+		Set<String> trainConsist=new LinkedHashSet<String>();
 
-		System.out.println("Train initialised successfully using LinkedList");
+		System.out.println("Train initialised successfully");
 
 		System.out.println("Initial Bogie Count:  "+trainConsist.size());
-		
-		//addFirst and addLast - Add the element to front and end of the linkedlist
-		trainConsist.addFirst("B101");
-		trainConsist.addLast("B103");
-		trainConsist.addFirst("B104");
+
+		trainConsist.add("B101");
 		trainConsist.add("B102");
+		trainConsist.add("B103");
+		trainConsist.add("B104");
+		//preserve insertion order
 		System.out.println("Current Train Consist:  "+trainConsist);
 
-		
+
 		trainConsist.remove("B102");
-		System.out.println("Current Train Consist (remove(B102)): "+trainConsist);
-
-		//removeLast - removes the last element from the list
-		trainConsist.removeLast();
-		System.out.println("Current Train Consist (removeLast): "+trainConsist);
-
-		trainConsist.add(2,"B101");
-		System.out.println("Current Train Consist (trainConsist.add(2,B101)) duplicate entry : "+trainConsist);
+		System.out.println("Current Train Consist (trainConsist.remove(B102)): "+trainConsist);
 		
+		//LinkedHashSet ignore duplicates
+		trainConsist.add("B101");
+		System.out.println("Current Train Consist after adding duplicates (trainConsist.add(B101)): "+trainConsist);
+
 
 		boolean contains=true;
 
@@ -57,4 +56,6 @@ public class Main {
 		System.out.println("Is B104 present ? :  "+contains);
 
 	}	
+
+
 }
