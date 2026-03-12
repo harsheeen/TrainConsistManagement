@@ -1,61 +1,70 @@
-package com.TrainManagement.UseCaseNine;
-
+package com.TrainManagement.UseCaseEleven;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import Boogie.Boogie;
+import java.util.regex.*;
 /**
- * USECASE 9 - TRAIN CONSIST MANAGEMENT
- * GROUP BOGIES BY CAPACITY
- * JAVA 9STREAM Collectors.groupingBy()
+ * 
+ * USECASE 11 - TRAIN CONSIST MANAGEMENT
+ * VALLIDATE TRAIN ID AND CARGO CODE
  * 
  * DESCRIPTION :
  * 
- * - CREATES A LIST OF BOGIES
- * - STREAM THE LIST
- * - GROUP BOGIES BY NAME
- * - STORE THE GROUPED DATA IN MAP
+ * - ACCEPT TRAIN ID AS INPUT
+ * - APPLY REGEX, CONTINUE AFTER THE USER FOLLOWS THE CORRECT PATTERN OF TRAIN ID
+ * - ACCEPT CARGO ID AS INPUT
+ * - APPLY REGEX, CONTINUE AFTER THE USER FOLLOWS THE CORRECT PATTERN OF CARGO ID
  * 
  * @author Harsheen
- * @version 9.0
+ * @version 11.0
  */
+
 public class Main {
 
 	public static void main(String args[]) {
 		System.out.println("============================================");
 		System.out.println("======TRAIN CONSIST MANAGEMENT SYSTEM ======");
-		System.out.println("====================UC-9===================");
+		System.out.println("==================UC-11=====================");
+
 		
-		//Initialize the ArrayList that stores Boogie object
-		List<Boogie> trainConsist=new ArrayList<>();
+		String TrainID = "";
+		Scanner sc=new Scanner(System.in);
+		
+		//loop continues until user enters correct pattern of TrainID
+		while(true) {
+			System.out.print("enter the TrainID (TRN-XXXX)");
+			TrainID = sc.nextLine();
+			
+			//regex pattern for train id - TRN-1234
+			Pattern pattern = Pattern.compile("^TRN-[0-9]{4}$");
+			Matcher matcher = pattern.matcher(TrainID);
 
-		trainConsist.add(new Boogie("AC", 25));
-		trainConsist.add(new Boogie("Sleeper", 21));
-		trainConsist.add(new Boogie("Second AC", 28));
-		trainConsist.add(new Boogie("AC", 13));
-
-		for(Boogie boogie: trainConsist) {
-			System.out.println("name: "+boogie.getName());
-			System.out.println("capacity: "+boogie.getCapacity());
-			System.out.println();
+			//.matches() return true if the matcher matches with the compiled pattern
+			if(matcher.matches()) {
+				System.out.println("Valid TrainID");
+				break;
+			} else {
+				System.out.println("Invalid TrainID");
+			}
 		}
-		
-		System.out.println("=====Grouped Boogies======");
-		
-		//groupingBy() is a collector used to group elements of a stream based on a key.
-		Map<String, List<Boogie>> groupedoogies=trainConsist.stream().collect(Collectors.groupingBy( b -> b.getName()));
-	
-		//Convert the grouped stream into map and print the key-value pairs
-		for(Map.Entry<String,List<Boogie>> entry : groupedoogies.entrySet()) {
-
-		    System.out.println("Boogie Type: " + entry.getKey());
-
-		    for(Boogie b : entry.getValue()) {
-		        System.out.println("Capacity: " + b.getCapacity());
-		    }
-
-		    System.out.println();
+		String CargoID;
+		//loop continues until user enters correct pattern of CargoID
+		while(true) {
+			System.out.print("enter the CargoCode (PET-XX)");
+			CargoID= sc.nextLine();
+			
+			//regex pattern for train id - PET-23
+			Pattern pattern = Pattern.compile("^PET-[A-Z]{2}$");
+			Matcher matcher = pattern.matcher(CargoID);
+			
+			//.matches() return true if the matcher matches with the compiled pattern
+			if(matcher.matches()) {
+				System.out.println("Valid CargoID");
+				break;
+			} else {
+				System.out.println("Invalid CargoID");
+			}
 		}
-
+		sc.close();
+		
 	}
 }
+
