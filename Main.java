@@ -1,61 +1,37 @@
-package com.TrainManagement.UseCaseFive;
+package com.TrainManagement.UseCaseSix;
 
 import java.util.*;
-
 /**
  * 
- * USECASE 5 - TRAIN CONSIST MANAGEMENT
- * PRESERVE INSERTION ORDER OF BOGIES USING LINKEDHASHSET
- * INITIALISE TRAIN AND USE FUNCTIONS SUCH AS add, remove, contains
- * DISPLAY CONSIST SUMMARY
+ * USECASE 6 - TRAIN CONSIST MANAGEMENT
+ * INITIALISE TRAIN AND DISPLAY CONSIST SUMMARY USING MAP INTERFACE
  * 
  * DESCRIPTION :
  * 
  * - MARKS THE ENTRY POINT OF THE TRAIN MANAGEMENT APPLICATION
  * - USES A DYNAMIC LIST TO STORE BOGIES
  * - DISPLAYS THE INITIAL BOGIE COUNT
- * - USES FUNCTIONS SUCH AS ADD, REMOVE, CONTAINS
  * 
  * @author Harsheen
- * @version 5.0
+ * @version 6.0
  */
-
 public class Main {
-	public static void main(String args[]) {
-		System.out.println("============================================");
-		System.out.println("======TRAIN CONSIST MANAGEMENT SYSTEM ======");
-		System.out.println("====================UC-5===================");
-		
-		//Initialise LinkedHashSet
-		Set<String> trainConsist=new LinkedHashSet<String>();
-
-		System.out.println("Train initialised successfully");
-
-		System.out.println("Initial Bogie Count:  "+trainConsist.size());
-
-		trainConsist.add("B101");
-		trainConsist.add("B102");
-		trainConsist.add("B103");
-		trainConsist.add("B104");
-		//preserve insertion order
-		System.out.println("Current Train Consist:  "+trainConsist);
-
-
-		trainConsist.remove("B102");
-		System.out.println("Current Train Consist (trainConsist.remove(B102)): "+trainConsist);
-		
-		//LinkedHashSet ignore duplicates
-		trainConsist.add("B101");
-		System.out.println("Current Train Consist after adding duplicates (trainConsist.add(B101)): "+trainConsist);
-
-
-		boolean contains=true;
-
-		contains=trainConsist.contains("B104");
-
-		System.out.println("Is B104 present ? :  "+contains);
-
-	}	
-
-
+public static void main(String args[]) {
+	System.out.println("============================================");
+	System.out.println("======TRAIN CONSIST MANAGEMENT SYSTEM ======");
+	System.out.println("====================UC-6===================");
+	
+	//Initialse HashMap to store name and capacity of the boogie 
+	Map<String,Integer> map=new HashMap<String, Integer>();
+	
+	map.put("B101",100);
+	map.put("B102",27);
+	map.put("B103",66);
+	map.put("B104",45);
+	
+	//entrySet -> returns a set of key–value pairs from the map
+	for (Map.Entry<String, Integer> entry : map.entrySet()) {
+		System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+		}
+}
 }
