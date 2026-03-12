@@ -1,10 +1,14 @@
-package com.TrainManagement.UseCaseSix;
+package com.TrainManagement.UseCaseSeven;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import Boogie.Boogie;
 /**
  * 
- * USECASE 6 - TRAIN CONSIST MANAGEMENT
- * INITIALISE TRAIN AND DISPLAY CONSIST SUMMARY USING MAP INTERFACE
+ * USECASE 7 - TRAIN CONSIST MANAGEMENT
+ * SORT BOGIES BY CAPACITY
  * 
  * DESCRIPTION :
  * 
@@ -13,25 +17,34 @@ import java.util.*;
  * - DISPLAYS THE INITIAL BOGIE COUNT
  * 
  * @author Harsheen
- * @version 6.0
+ * @version 7.0
  */
 public class Main {
+	
+	
 public static void main(String args[]) {
 	System.out.println("============================================");
 	System.out.println("======TRAIN CONSIST MANAGEMENT SYSTEM ======");
-	System.out.println("====================UC-6===================");
+	System.out.println("====================UC-7===================");
 	
-	//Initialse HashMap to store name and capacity of the boogie 
-	Map<String,Integer> map=new HashMap<String, Integer>();
+	//Initialize ArrayList to store the object of Boogie
+	List<Boogie> trainConsist=new ArrayList<>();
 	
-	map.put("B101",100);
-	map.put("B102",27);
-	map.put("B103",66);
-	map.put("B104",45);
+	trainConsist.add(new Boogie("AC", 25));
+	trainConsist.add(new Boogie("Sleeper", 21));
+	trainConsist.add(new Boogie("Second AC", 28));
+	trainConsist.add(new Boogie("Third AC", 13));
+
+	System.out.println("Normal trainConsist");
+	System.out.print(trainConsist);
+	System.out.println();
 	
-	//entrySet -> returns a set of key–value pairs from the map
-	for (Map.Entry<String, Integer> entry : map.entrySet()) {
-		System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
-		}
+	//Calling comparator to sort using BoogieComparator
+	System.out.println("sorted trainConsist by capacity");
+	Collections.sort(trainConsist, new BoogieComparator());
+	System.out.println();
+
+	System.out.print(trainConsist);
 }
 }
+
