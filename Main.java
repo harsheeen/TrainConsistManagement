@@ -1,70 +1,57 @@
-package com.TrainManagement.UseCaseNineteen;
+
+package com.TrainManagement.UseCaseTwenty;
 
 import java.util.Arrays;
+
+import com.TrainManagement.UseCaseTwenty.EmptySearchException;
 /**
  * 
- * USECASE 19 - TRAIN CONSIST MANAGEMENT
- * Binary Search for Bogie ID (Optimized Searching)
+ * USECASE 20 - TRAIN CONSIST MANAGEMENT
+ * Exception Handling During Search Operations
  * 
  * DESCRIPTION :
- * - CREATES SORTED BOGGIE ID ARRAY
- * - DEFINES SEARCH KEY
- * - APPLIES BINARY SEARCH LOGIC
- * - NARROWS THE SEARCH RANGE ITERATION
+ * 
+ * - CREATE BOGGIE COLLECTION
+ * - VALIDATE SYSTEM STATE
+ * - THROWS EXCEPTION IF EMPTY
+ * - STOPS INVALID SEARCH OPERATION
+ * DISPLAYS MEANINGFUL MESSAGE
  * 
  * @author Harsheen
- * @version 19.0
+ * @version 20.0
  */
 public class Main {
-	//
-	public static void print(String arr[]) {
-		for(int i=0;i<arr.length;i++)
-			System.out.print(" [ " + arr[i]+" ] ");
-		System.out.println();
-	}
-	public static void main(String args[]) {
+	
+	public static void main(String args[]) throws EmptySearchException {
 		System.out.println("============================================");
 		System.out.println("======TRAIN CONSIST MANAGEMENT SYSTEM ======");
-		System.out.println("====================UC-19===================");
+		System.out.println("==================UC-18=====================");
 		
+		//Initialize an empty array of strings
+		String[] boogie_id= {};
+		String Search_id="B103";
+
+		//try-catch block that throws exception when the array is empty
+		try {
+			if(boogie_id.length==0) {
+				throw new EmptySearchException("Exception is thrown: Boogie is empty");
+			}
+		}
+		catch(EmptySearchException e) {
+			System.out.println(e.getMessage());
+		}
 		
-		//Initialize the array of strings
-		String[] Boogie_names= {"Sleeper", "AC Chair", "Luxury", "General","First Class"};
-		String Search_id="Sleeper";
-		
-		//Print the array before sorting
-		System.out.println("Before Sorting");
-		print(Boogie_names);
+		//If the array is not empty, print and find the Search_id element in the array
+		Arrays.stream(boogie_id).forEach(x -> System.out.print(x + " "));
 		System.out.println();
-		
-		//Sort the array
-		Arrays.sort(Boogie_names);
-		System.out.println("After Sorting");
-		print(Boogie_names);
-		
-		
 		boolean find=false;
-		int low=0,mid;
-		int high=Boogie_names.length-1;
-		
-		//Apply Binary Search logic on the sorted array
-		while(low<=high) {
-			mid = low + (high - low) / 2;
-			if(Boogie_names[mid].equals(Search_id)) {  
+
+		for(String boogie:boogie_id) {
+			if(boogie.equals(Search_id)) {
 				find=true;
 				break;
 			}
-			else if(Boogie_names[mid].compareTo(Search_id)<0) {  //if the element comes after the mid element, shift low to mid+1
-				low=mid+1;
-			}
-			else {
-				high=mid-1;   //if the element comes before the mid element, shift high to mid-1
-			}
-
 		}
-		System.out.println();
-		System.out.print("Can you find "+Search_id+" : ");
-		System.out.println((find)?"Found":"Not Found");
 
 
 
