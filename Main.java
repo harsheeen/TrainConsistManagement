@@ -1,50 +1,58 @@
-package com.TrainManagement.UseCaseSeven;
+package com.TrainManagement.UseCaseEight;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import java.util.*;
+import com.TrainManagement.UseCaseSeven.BoogieComparator;
 import Boogie.Boogie;
 /**
  * 
- * USECASE 7 - TRAIN CONSIST MANAGEMENT
- * SORT BOGIES BY CAPACITY
+ * USECASE 8 - FILTER PASSNGER USING STREAMS
  * 
  * DESCRIPTION :
  * 
- * - MARKS THE ENTRY POINT OF THE TRAIN MANAGEMENT APPLICATION
- * - USES A DYNAMIC LIST TO STORE BOGIES
- * - DISPLAYS THE INITIAL BOGIE COUNT
+ * - CREATES A LIST OF BOOGIES
+ * - CONVERTS LIST INTO STREAMS
+ * - APPLY FILTER CONDITION
+ * - COLLECTS FILTERED RESULT
  * 
  * @author Harsheen
- * @version 7.0
+ * @version 8.0
  */
 public class Main {
-	
-	
+
 public static void main(String args[]) {
 	System.out.println("============================================");
 	System.out.println("======TRAIN CONSIST MANAGEMENT SYSTEM ======");
-	System.out.println("====================UC-7===================");
+	System.out.println("====================UC-8===================");
 	
-	//Initialize ArrayList to store the object of Boogie
+	//Initialize ArrayLList to store Boogie objects
 	List<Boogie> trainConsist=new ArrayList<>();
 	
+	//Add new Boogie objects to the trainConsist
 	trainConsist.add(new Boogie("AC", 25));
 	trainConsist.add(new Boogie("Sleeper", 21));
 	trainConsist.add(new Boogie("Second AC", 28));
 	trainConsist.add(new Boogie("Third AC", 13));
 
+	
 	System.out.println("Normal trainConsist");
 	System.out.print(trainConsist);
 	System.out.println();
-	
-	//Calling comparator to sort using BoogieComparator
-	System.out.println("sorted trainConsist by capacity");
-	Collections.sort(trainConsist, new BoogieComparator());
 	System.out.println();
 
+	//Sort the trainConsist using comparator that sorts basedon capacity
+	Collections.sort(trainConsist, new BoogieComparator());
+	System.out.println("sorted trainConsist by capacity");
 	System.out.print(trainConsist);
-}
-}
+	System.out.println();
+	System.out.println();
 
+	//Filter the Boogie based on capacity using streams
+	//filter() is used to select elements that satisfy a condition from a stream.
+	List<Boogie> stream_trainConsist=trainConsist.stream()
+            .filter(b -> b.getCapacity() > 20)
+            .toList();
+	System.out.println("trainConsist by capacity > 20");
+	System.out.print(stream_trainConsist);
+
+}
+}
