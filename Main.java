@@ -1,51 +1,50 @@
-package com.TrainManagement.UseCaseFourteen;
+package com.TrainManagement.UseCaseFifteen;
 
-import java.util.*;
+import java.util.LinkedList;
+
 /**
- * 
- * USECASE 14 - TRAIN CONSIST MANAGEMENT
- * HANDLE INVALID BOGIE CAPACITY (CUSTOM EXCEPTION)
- * 
- * DESCRIPTION :
- * 
- * - DEFINES A CUSTOM EXCEPTION
- * - VALIDATES CAPACITY INSIDE A CONSTRUCTOR
- * - THROWS EXCEPTION IS CAPACITY<0
- * - CONTINUES EXECUTION SAFELY
- * 
- * @author Harsheen
- * @version 14.0
- */
+* 
+* USECASE 15 - TRAIN CONSIST MANAGEMENT
+* SAFE CARGO ASSIGNMENT USING TRY-CATCH-FINALLY 
+* 
+* DESCRIPTION :
+* 
+* - DEFINES A CUSTOM RUNTIME EXCEPTION
+* - VALIDATES CARGO ASSIGNMENT RULES
+* - THROWS EXCEPTION FOR UNSAFE CARGO
+* - EXECUTES FINALLY BLOCK FO LOGGING
+* 
+* @author Harsheen
+* @version 15.0
+*/
 public class Main {
 	public static void main(String args[]) {
 		System.out.println("============================================");
 		System.out.println("======TRAIN CONSIST MANAGEMENT SYSTEM ======");
-		System.out.println("==================UC-14=====================");
+		System.out.println("==================UC-15=====================");
 
-	LinkedList<BoogieCapacity> list=new LinkedList<>();
-	
-	//try-catch block that validate the capacity
-	//constructor of BoogieCapacity checks if the capacity>0 and throws exception if it is
-	try {
-	list.add(new BoogieCapacity("AC",10));
-	System.out.println("Added "+list.getLast());
-	list.add(new BoogieCapacity("Sleeper",20));
-	System.out.println("Added "+list.getLast());
-	list.add(new BoogieCapacity("Second AC",13));
-	System.out.println("Added "+list.getLast());
-	list.add(new BoogieCapacity("Third AC",0));
-	System.out.println("Added "+list.getLast());
-
-	}
-	catch(InvalidCapacityException e) {
-		System.out.println(e.getMessage());
+		LinkedList<Cargo> list=new LinkedList<>();
 		
-	}
-	finally {
-		System.out.println("Execution Over");
-	}
-	
-	}
+		//try-catch block that validate the assignment
+		//constructor of BoogieCapacity checks if the petroleum is placed in cylindrical tank and throws exception if it is
+		try {
+		list.add(new Cargo("Grain","Rectangle"));
+		System.out.println("Added "+list.getLast()+" successfully");
+		list.add(new Cargo("Pulses","Rectangle"));
+		System.out.println("Added "+list.getLast()+" successfully");
+		list.add(new Cargo("Petroleum","Square"));
+		System.out.println("Added "+list.getLast()+" successfully");
+		list.add(new Cargo("Petroleum","Cylindrical"));
+		System.out.println("Added "+list.getLast());
+
+		}
+		catch(CargoSafetyException e) {
+			System.out.println(e.getMessage());
+			
+		}
+		finally {
+			System.out.println("Execution Over");
+		}
+		
+		}
 }
-
-
