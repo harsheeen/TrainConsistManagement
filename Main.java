@@ -1,44 +1,51 @@
-package com.TrainManagement.UseCaseSeventeen;
+package com.TrainManagement.UseCaseEighteen;
+
+import java.util.Arrays;
 /**
  * 
- * USECASE 17 - TRAIN CONSIST MANAGEMENT
- * Sort Bogie Names Using Arrays.sort()
+ * USECASE 18 - TRAIN CONSIST MANAGEMENT
+ * Linear Search for Bogie ID (Array-Based Searching)
  * 
  * DESCRIPTION :
  * 
- * - CREATES AN ARRAY OF BOGGIE NAMES
- * - USES ARRAY.SORT() FOR SORTING
- * - DISPLAYS THE SORTED RESULTS
+ * - CREATES AN ARRAY OF BOGGIE IDs
+ * - ACEPTS A SEARCH KEY
+ * - TRAVERSETHE ARRAY SEQUENTIALLY
+ * - STOPS WHEN ARRAY IS FOUND
+ * - DISPLAYS THE SEARCH RESULT
  * 
  * @author Harsheen
- * @version 17.0
+ * @version 18.0
  */
-import java.util.Arrays;
-
 public class Main {
-	//Helper function-to print the elements of array
-	public static void print(String arr[]) {
-		for(int i=0;i<arr.length;i++)
-			System.out.print(" [ " + arr[i]+" ] ");
-		System.out.println();
-	}
-	
 	public static void main(String args[]) {
 		System.out.println("============================================");
 		System.out.println("======TRAIN CONSIST MANAGEMENT SYSTEM ======");
-		System.out.println("==================UC-17=====================");
+		System.out.println("==================UC-20=====================");
+
+		//Initialize an array of Strings
+		String[] boogie_id= {"B101","B102","B103","B104"};
 		
-		//Initialize the Array
-		String[] Boogie_names= {"Sleeper", "AC Chair", "Luxury", "General","First Class"};
-		System.out.println("Before Sorting");
+		//Search_id defines the train to be searched
+		String Search_id="B103";
+		System.out.println("Present Boogie IDs are");
 		
-		//printing the elements in their insertion order
-		print(Boogie_names);
+		
+		Arrays.stream(boogie_id).forEach(x -> System.out.print(x + " "));
 		System.out.println();
+		boolean find=false;
 		
-		//Arrays.sort()- sort the array of strings in lexicographically order
-		Arrays.sort(Boogie_names);
-		System.out.println("After Sorting");
-		print(Boogie_names);
+		//for-each loop to find the Search_id element 
+		for(String boogie:boogie_id) {
+			if(boogie.equals(Search_id)) {
+				find=true;
+				break;
+			}
+		}
+		System.out.print("Is " +Search_id+" Present?");
+		System.out.print(find ? " Yes " : "No");
+
+
 	}
-	}
+
+}
