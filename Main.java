@@ -1,58 +1,61 @@
-package com.TrainManagement.UseCaseEight;
+package com.TrainManagement.UseCaseNine;
 
 import java.util.*;
-import com.TrainManagement.UseCaseSeven.BoogieComparator;
+import java.util.stream.Collectors;
+
 import Boogie.Boogie;
 /**
- * 
- * USECASE 8 - FILTER PASSNGER USING STREAMS
+ * USECASE 9 - TRAIN CONSIST MANAGEMENT
+ * GROUP BOGIES BY CAPACITY
+ * JAVA 9STREAM Collectors.groupingBy()
  * 
  * DESCRIPTION :
  * 
- * - CREATES A LIST OF BOOGIES
- * - CONVERTS LIST INTO STREAMS
- * - APPLY FILTER CONDITION
- * - COLLECTS FILTERED RESULT
+ * - CREATES A LIST OF BOGIES
+ * - STREAM THE LIST
+ * - GROUP BOGIES BY NAME
+ * - STORE THE GROUPED DATA IN MAP
  * 
  * @author Harsheen
- * @version 8.0
+ * @version 9.0
  */
 public class Main {
 
-public static void main(String args[]) {
-	System.out.println("============================================");
-	System.out.println("======TRAIN CONSIST MANAGEMENT SYSTEM ======");
-	System.out.println("====================UC-8===================");
+	public static void main(String args[]) {
+		System.out.println("============================================");
+		System.out.println("======TRAIN CONSIST MANAGEMENT SYSTEM ======");
+		System.out.println("====================UC-9===================");
+		
+		//Initialize the ArrayList that stores Boogie object
+		List<Boogie> trainConsist=new ArrayList<>();
+
+		trainConsist.add(new Boogie("AC", 25));
+		trainConsist.add(new Boogie("Sleeper", 21));
+		trainConsist.add(new Boogie("Second AC", 28));
+		trainConsist.add(new Boogie("AC", 13));
+
+		for(Boogie boogie: trainConsist) {
+			System.out.println("name: "+boogie.getName());
+			System.out.println("capacity: "+boogie.getCapacity());
+			System.out.println();
+		}
+		
+		System.out.println("=====Grouped Boogies======");
+		
+		//groupingBy() is a collector used to group elements of a stream based on a key.
+		Map<String, List<Boogie>> groupedoogies=trainConsist.stream().collect(Collectors.groupingBy( b -> b.getName()));
 	
-	//Initialize ArrayLList to store Boogie objects
-	List<Boogie> trainConsist=new ArrayList<>();
-	
-	//Add new Boogie objects to the trainConsist
-	trainConsist.add(new Boogie("AC", 25));
-	trainConsist.add(new Boogie("Sleeper", 21));
-	trainConsist.add(new Boogie("Second AC", 28));
-	trainConsist.add(new Boogie("Third AC", 13));
+		//Convert the grouped stream into map and print the key-value pairs
+		for(Map.Entry<String,List<Boogie>> entry : groupedoogies.entrySet()) {
 
-	
-	System.out.println("Normal trainConsist");
-	System.out.print(trainConsist);
-	System.out.println();
-	System.out.println();
+		    System.out.println("Boogie Type: " + entry.getKey());
 
-	//Sort the trainConsist using comparator that sorts basedon capacity
-	Collections.sort(trainConsist, new BoogieComparator());
-	System.out.println("sorted trainConsist by capacity");
-	System.out.print(trainConsist);
-	System.out.println();
-	System.out.println();
+		    for(Boogie b : entry.getValue()) {
+		        System.out.println("Capacity: " + b.getCapacity());
+		    }
 
-	//Filter the Boogie based on capacity using streams
-	//filter() is used to select elements that satisfy a condition from a stream.
-	List<Boogie> stream_trainConsist=trainConsist.stream()
-            .filter(b -> b.getCapacity() > 20)
-            .toList();
-	System.out.println("trainConsist by capacity > 20");
-	System.out.print(stream_trainConsist);
+		    System.out.println();
+		}
 
-}
+	}
 }
